@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# This script notifies slack when the machine is shutdown or started
+#
+##############
+
+slack_url=`cat /etc/init.d/slack_url`
+
+case "$1" in
+ start)
+  curl -H "Content-type: application/json" \
+  -X POST -d \
+  '{
+    "channel":"#contentores",
+    "text":"Test text Start"
+  }' $slack_url
+   ;;
+ stop)
+  curl -H "Content-type: application/json" \
+  -X POST -d \
+  '{
+    "channel":"#contentores",
+    "text":"Test text Stop"
+  }' $slack_url
+   ;;
+ *)
+   echo "INFO: Script used to send notifications to Slack Shutdown/Startup" >&2
+   exit 3
+   ;;
+esac
+
+exit 0

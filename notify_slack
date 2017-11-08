@@ -1,0 +1,80 @@
+#!/bin/bash
+#
+#
+# This script notifies slack
+# when this machine starts up
+# or shuts down
+#
+########################################
+
+#This reads in the webhook URL from a file
+#just replace it with you actual webhook URL
+slack_url=`cat /etc/init.d/slack_url`
+
+start_text="Name   : `hostname`"
+start_text+="\nIP       : `ip route get 8.8.8.8 | awk '{print $NF; exit}'`"
+stop_text+=$start_text
+start_text+="\nMemory   : `cat /proc/meminfo | grep MemTotal | awk '{mem= $2/1048576; printf("%0.2g GiB",mem) ; exit}'`"
+drive_info="`df -h | grep Filesystem`"
+drive_info+="\n`df -h | grep /dev/sd | sed ':a;N;$!ba;s/\n/\\\n/g'`"
+
+
+case "$1" in
+ start)
+   curl -H "Content-type:application/json" \
+   -X POST -d \
+   '{
+      "channel":"#channel",
+      "username" : "Server",
+      "icon_emoji" : ":ubuntu:",
+      "attachments" : [
+        {
+          "fallback": "Server Starting up!",
+          "color" : "good",
+          "fields" : [
+            {
+               "title" : "Server Starting Up!",
+               "value" : "'"$start_text"'",
+               "short" : "true"
+            },
+            {
+               "title" : "Drive Status",
+               "value" : "'"$drive_info"'",
+               "short" : "true"
+            }
+          ]
+        }
+      ]
+    }
+   ' $slack_url
+   ;;
+ stop)
+   curl -H "Content-type:application/json" \
+   -X POST -d \
+   '{
+      "channel":"#channel",
+      "username" : "Server",
+      "icon_emoji" : ":ubuntu:",
+      "attachments" : [
+        {
+          "fallback": "Server Shutting Down!",
+          "color" : "danger",
+          "fields" : [
+            {
+               "title" : "Server Shutting Down!",
+               "value" : "'"$stop_text"'",
+               "short" : "true"
+            }
+          ]
+        }
+      ]
+    }
+   ' $slack_url
+   ;;
+ *)
+   echo "INFO:Script used to send notifications to Slack Shutdown/Startup" >&2
+   exit 3
+   ;;
+esac
+
+exit 0
