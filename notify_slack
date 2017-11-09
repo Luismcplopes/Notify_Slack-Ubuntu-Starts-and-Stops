@@ -24,9 +24,9 @@ case "$1" in
    curl -H "Content-type:application/json" \
    -X POST -d \
    '{
-      "channel":"#channel",
-      "username" : "Server",
-      "icon_emoji" : ":ubuntu:",
+      "channel":"<<channel>>",
+      "username" : "<<Server>>",
+      "icon_emoji" : "<<:ubuntu:>>",
       "attachments" : [
         {
           "fallback": "Server Starting up!",
