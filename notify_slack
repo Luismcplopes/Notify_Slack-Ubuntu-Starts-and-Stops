@@ -18,7 +18,6 @@ start_text+="\nMemory   : `cat /proc/meminfo | grep MemTotal | awk '{mem= $2/104
 drive_info="`df -h | grep Filesystem`"
 drive_info+="\n`df -h | grep /dev/sd | sed ':a;N;$!ba;s/\n/\\\n/g'`"
 
-
 case "$1" in
  start)
    curl -H "Content-type:application/json" \
