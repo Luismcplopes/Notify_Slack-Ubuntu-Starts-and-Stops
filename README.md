@@ -14,7 +14,7 @@ This script notifies slack when this machine starts up or shuts down
 
 ## Installer   
 ```
-$ sudo wget https://git.io/vFBYe -O /etc/init.d/install.sh && sudo bash install.sh
+$ sudo wget https://git.io/vFBYe -O install.sh && sudo bash install.sh
 ```
 
 ## Simple Script
