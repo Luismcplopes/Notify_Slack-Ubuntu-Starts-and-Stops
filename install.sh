@@ -11,7 +11,7 @@ sudo wget https://git.io/vFBY8 -O /etc/init.d/slack_url
 # change this on slack_url file
 echo "Enter a slack webhooks : "
 read webhook
-echo "$webhook" >> /etc/init.d/slack_
+echo "$webhook" >> /etc/init.d/slack_url
 
 # change this on notify_slack file
 echo "Enter a channel name like this #channel"
