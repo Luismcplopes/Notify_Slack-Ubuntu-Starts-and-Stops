@@ -1,4 +1,4 @@
-# Notify Slack when Ubuntu 14 Starts and Stops
+# Notify [Slack](https://slack.com/) when Ubuntu 14 Starts and Stops
 This script notifies slack when this machine starts up or shuts down
 
 
@@ -30,8 +30,3 @@ $ sudo wget https://git.io/vFBYe -O install.sh && sudo bash install.sh
 - http://www.whiteboardcoder.com/
 
 ## Happy Slacking!
-
-
-
-
-
